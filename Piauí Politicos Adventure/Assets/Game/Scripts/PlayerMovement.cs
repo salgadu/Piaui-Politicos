@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 	public CharacterController2D controller;
@@ -9,8 +10,27 @@ public class PlayerMovement : MonoBehaviour {
 	float horizontalMove = 0f;
 	bool jump = false;
 	bool crouch = false;
+	private int score=0;
+	public Text scoreTxt;
+	private AudioSource sound;
+
+	
+	public void ReceiveCoin(int score)
+    {
+		this.score += score;
+		sound.Play();
+    }
+	void Awake()
+	{
+		sound = GetComponent<AudioSource>();
+	}
 
 	void Update () {
+
+	
+	scoreTxt.text = score.ToString();
+		
+
 
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
